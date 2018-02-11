@@ -1,0 +1,10 @@
+*.so
+
+lib/
+lib64/
+
+*.egg-info/
+
+venv/
+.idea/
+__pycache__/
