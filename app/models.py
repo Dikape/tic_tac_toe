@@ -7,10 +7,6 @@ class User(db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(128))
 
-    # def __init__(self, username, password):
-    #     self.username = username
-    #     self.password = self.set_password(password)
-
     def __repr__(self):
         return '<User {}>'.format(self.username)
 
@@ -19,3 +15,9 @@ class User(db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+
+    def create(self):
+        self.set_password(self.password)
+        db.session.add(self)
+        db.session.commit()
+        return self

@@ -16,6 +16,6 @@ api = Api(app, prefix="/api/v0")
 jwt = JWT(app, security.authenticate, security.identity)
 migrate = Migrate(app, db)
 
-from app import models, resources
+from app import models
 
-api.add_resource(resources.UserRegistration, '/registration')
+
