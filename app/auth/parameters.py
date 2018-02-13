@@ -17,3 +17,8 @@ user_fields = {
     'id': fields.Integer,
     'username': fields.String,
 }
+
+auth_user_fields = user_fields.copy()
+auth_user_fields.update({
+    'access_token': fields.String,
+})

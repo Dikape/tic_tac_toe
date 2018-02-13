@@ -1,8 +1,9 @@
 import os
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-
 from datetime import timedelta
+
+
 class Config(object):
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
     DEBUG = False
     TESTING = False
     SQLALCHEMY_DATABASE_URI = 'postgresql://beph:bephpass@localhost/tic_tac_toe'
@@ -18,3 +19,6 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG = True
+
+
+# class TestingConfig(Config):

@@ -16,6 +16,6 @@ api = Api(app, prefix="/api/v0")
 jwt = JWT(app, security.authenticate, security.identity)
 migrate = Migrate(app, db)
 
-from app import models
+from app import models, routes
 
 
