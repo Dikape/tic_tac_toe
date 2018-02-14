@@ -14,7 +14,7 @@ class UserRegistrationResource(Resource):
         args = auth_parser.parse_args()
         user_with_username = User.query.filter_by(username=args.username).all()
         if user_with_username:
-            abort(409, message='User with this name is exists!')
+            abort(409, message='User "{0}" is exists!'.format(args.username))
 
         user = User(username=args.username, password=args.password).create()
         access_token = jwt.jwt_encode_callback(user).decode('utf8')
