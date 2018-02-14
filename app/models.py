@@ -7,7 +7,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(128))
-    games = db.relationship('Game', backref='user', lazy=True)
+    members = db.relationship('Member', backref='user', lazy=True)
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
