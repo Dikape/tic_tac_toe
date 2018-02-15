@@ -1,3 +1,4 @@
+import socketio
 from flask import Flask
 from config import DevelopmentConfig
 from flask_sqlalchemy import SQLAlchemy
@@ -11,10 +12,12 @@ app.config.from_object(DevelopmentConfig)
 db = SQLAlchemy(app)
 CORS(app)
 
+
 from app.auth import security
 
 api = Api(app, prefix="/api/v0")
 jwt = JWT(app, security.authenticate, security.identity)
+sio = socketio.Server()
 migrate = Migrate(app, db)
 
 from app import models, routes
