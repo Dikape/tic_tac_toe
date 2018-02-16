@@ -7,7 +7,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(64), index=True, unique=True)
     password = db.Column(db.String(128))
-    members = db.relationship('Member', backref='user', lazy=True)
+    members = db.relationship('Member', backref='user', lazy='dynamic')
 
     def __repr__(self):
         return '<User {}>'.format(self.username)
@@ -39,6 +39,11 @@ class Game(db.Model):
     game_type_id = db.Column(db.Integer, db.ForeignKey('game_type.id'), nullable=False)
     members = db.relationship('Member', backref='game', lazy=True)
 
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
+
 
 class Status(db.Model):
     __tablename__ = 'status'
@@ -53,6 +58,11 @@ class Member(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=True)
     steps = db.relationship('Step', backref='member', lazy=True)
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
 
 
 class Step(db.Model):
