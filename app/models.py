@@ -61,7 +61,7 @@ class Member(db.Model):
     game_id = db.Column(db.Integer, db.ForeignKey('game.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'), nullable=True)
-    steps = db.relationship('Step', backref='member', lazy=True)
+    steps = db.relationship('Step', backref='member', lazy='dynamic')
 
     def save(self):
         db.session.add(self)
@@ -75,6 +75,10 @@ class Step(db.Model):
     step_number = db.Column(db.Integer)
     x_coordinate = db.Column(db.Integer)
     y_coordinate = db.Column(db.Integer)
+    value = db.Column(db.String(1))
     member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False)
 
-
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+        return self
