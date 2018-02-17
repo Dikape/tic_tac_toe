@@ -1,16 +1,16 @@
 from app import sio
 
 
-@sio.on('connect')
+@sio.on('connect', namespace='/hot_seat')
 def connect(sid, environ):
-    print('connect ', sid)
+    pass
 
 
-@sio.on('my message')
-def message(sid, data):
-    print('message ', data)
+@sio.on('step', namespace='/hot_seat')
+def step(sid, data):
+    sio.emit('reply', data, namespace='/hot_seat', room=sid)
 
 
-@sio.on('disconnect')
+@sio.on('disconnect', namespace='/hot_seat')
 def disconnect(sid):
-    print('disconnect ', sid)
+    pass

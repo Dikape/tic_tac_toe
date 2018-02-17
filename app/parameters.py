@@ -14,6 +14,6 @@ game_parser.add_argument(
 )
 
 game_fields = {
-    'id': fields.Integer,
+    'id': fields.String,
     'size': fields.Integer,
 }

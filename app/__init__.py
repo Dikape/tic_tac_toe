@@ -20,6 +20,6 @@ jwt = JWT(app, security.authenticate, security.identity)
 sio = socketio.Server()
 migrate = Migrate(app, db)
 
-from app import models, routes
+from app import models, routes, socket_app
 
 
