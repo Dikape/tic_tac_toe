@@ -1,3 +1,6 @@
+from uuid import uuid4
+from sqlalchemy.dialects.postgresql import UUID
+
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 
@@ -35,6 +38,7 @@ class GameType(db.Model):
 class Game(db.Model):
     __tablename__ = 'game'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    uuid = db.Column(UUID(as_uuid=True), default=uuid4)
     size = db.Column(db.Integer)
     game_type_id = db.Column(db.Integer, db.ForeignKey('game_type.id'), nullable=False)
     members = db.relationship('Member', backref='game', lazy=True)
