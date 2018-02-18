@@ -1,7 +1,7 @@
+from datetime import datetime
 from app import sio
-
 from app import models
-from .calculations import check_winner
+from app.calculations import check_winner
 
 
 def get_game_result(step, member):
@@ -18,6 +18,9 @@ def get_game_result(step, member):
         response['message'] = '{0} winner!'.format(step.value)
     elif len(all_steps.all()) == game.size*game.size:
         response['message'] = 'Draw game!'
+    if response['message'] != 'saved':
+        game.finished_datetime = datetime.now()
+        game.save()
     return response
 
 @sio.on('connect', namespace='/hot_seat')

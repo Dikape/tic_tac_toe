@@ -1,3 +1,4 @@
+import datetime
 from uuid import uuid4
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -41,6 +42,7 @@ class Game(db.Model):
     uuid = db.Column(UUID(as_uuid=True), default=uuid4)
     size = db.Column(db.Integer)
     game_type_id = db.Column(db.Integer, db.ForeignKey('game_type.id'), nullable=False)
+    finished_datetime = db.Column(db.DateTime, nullable=True)
     members = db.relationship('Member', backref='game', lazy=True)
 
     def save(self):
