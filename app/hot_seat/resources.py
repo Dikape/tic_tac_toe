@@ -6,7 +6,7 @@ from app import models
 from .parameters import game_parser, game_fields, step_fields
 
 
-class GameListResource(Resource):
+class HotSeatGameListResource(Resource):
     @jwt_required()
     @marshal_with(game_fields)
     def get(self):
@@ -29,7 +29,7 @@ class GameListResource(Resource):
         return game, 201
 
 
-class StepsListResource(Resource):
+class HotSeatStepsListResource(Resource):
     @jwt_required()
     @marshal_with(step_fields)
     def get(self, game_id):

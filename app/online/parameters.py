@@ -17,6 +17,7 @@ game_fields = {
     'id': fields.String,
     'uuid': fields.String,
     'size': fields.Integer,
+    'author': fields.String
 }
 
 

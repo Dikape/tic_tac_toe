@@ -43,7 +43,12 @@ class Game(db.Model):
     size = db.Column(db.Integer)
     game_type_id = db.Column(db.Integer, db.ForeignKey('game_type.id'), nullable=False)
     finished_datetime = db.Column(db.DateTime, nullable=True)
-    members = db.relationship('Member', backref='game', lazy=True)
+    members = db.relationship('Member', backref='game', lazy='dynamic')
+
+    @property
+    def author(self):
+        author_member = self.members.order_by(Member.id).first()
+        return author_member.user.username
 
     def save(self):
         db.session.add(self)
