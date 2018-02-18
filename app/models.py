@@ -50,6 +50,14 @@ class Game(db.Model):
         author_member = self.members.order_by(Member.id).first()
         return author_member.user.username
 
+    @property
+    def winner(self):
+        winner_status = Status.query.filter_by(status='winner').first()
+        winner_member = self.members.filter_by(status_id=winner_status.id).first()
+        if winner_member:
+            return winner_member.user.username
+        return 'nobody'
+
     def save(self):
         db.session.add(self)
         db.session.commit()
@@ -84,6 +92,10 @@ class Step(db.Model):
     y_coordinate = db.Column(db.Integer, index=True)
     value = db.Column(db.String(1))
     member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False, index=True)
+
+    @property
+    def user(self):
+        return self.member.user.username
 
     def save(self):
         db.session.add(self)

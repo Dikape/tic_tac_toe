@@ -17,5 +17,18 @@ game_fields = {
     'id': fields.String,
     'uuid': fields.String,
     'size': fields.Integer,
-    'author': fields.String
+    'author': fields.String,
+    'game_type': fields.String,
+    'finished_datetime': fields.String
+}
+
+history_fields = game_fields.copy()
+history_fields['winner'] = fields.String
+
+step_fields = {
+    'step_number': fields.Integer,
+    'x_coordinate': fields.Integer,
+    'y_coordinate': fields.Integer,
+    'value': fields.String,
+    'user': fields.String
 }
