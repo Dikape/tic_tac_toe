@@ -19,11 +19,3 @@ game_fields = {
     'size': fields.Integer,
     'author': fields.String
 }
-
-
-step_fields = {
-    'step_number': fields.Integer,
-    'x_coordinate': fields.Integer,
-    'y_coordinate': fields.Integer,
-    'value': fields.String,
-}

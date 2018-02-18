@@ -30,7 +30,7 @@ def connect(sid, environ):
 
 
 @sio.on('step', namespace='/hot_seat')
-def step(sid, data):
+def step_handler(sid, data):
     member = models.Member.query.filter_by(game_id=data['gameId'], user_id=data['userId']).first()
     step = models.Step(step_number=data['stepNumber'],
                        x_coordinate=data['x'],

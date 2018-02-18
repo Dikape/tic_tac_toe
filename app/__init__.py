@@ -22,6 +22,7 @@ sio = socketio.Server()
 migrate = Migrate(app, db)
 
 from app import models, routes
-from app.hot_seat import socket_app
+from app.hot_seat import socket_app as online_hot_seat
+from app.online import socket_app as online_socket_app
 
 
