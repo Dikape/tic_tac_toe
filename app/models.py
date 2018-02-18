@@ -73,10 +73,10 @@ class Step(db.Model):
     __tablename__ = 'step'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     step_number = db.Column(db.Integer)
-    x_coordinate = db.Column(db.Integer)
-    y_coordinate = db.Column(db.Integer)
+    x_coordinate = db.Column(db.Integer, index=True)
+    y_coordinate = db.Column(db.Integer, index=True)
     value = db.Column(db.String(1))
-    member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey('member.id'), nullable=False, index=True)
 
     def save(self):
         db.session.add(self)

@@ -19,8 +19,12 @@ def step(sid, data):
                        value=current_symbol,
                        member_id=member.id)
     step.save()
-    all_steps = member.steps.filter_by(value=current_symbol).all()
-    is_winner = check_winner(all_steps)
+    step_coordinate = (step.x_coordinate, step.y_coordinate)
+    all_steps = member.steps.filter_by(value=current_symbol).\
+        order_by(models.Step.step_number).\
+        with_entities(models.Step.x_coordinate, models.Step.y_coordinate).all()
+
+    is_winner = check_winner(all_steps, step_coordinate)
     response = {'message': 'saved'}
     if is_winner:
         response['message'] = '{0} winner!'.format(current_symbol)
