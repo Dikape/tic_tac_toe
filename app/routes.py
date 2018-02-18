@@ -8,3 +8,4 @@ from . import resources as game_resources
 api.add_resource(auth_resources.UserRegistrationResource, '/registration')
 api.add_resource(auth_resources.UserInfoResource, '/user')
 api.add_resource(game_resources.GameListResource, '/game')
+api.add_resource(game_resources.StepsListResource, '/steps/<int:game_id>')

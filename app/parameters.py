@@ -18,3 +18,11 @@ game_fields = {
     'uuid': fields.String,
     'size': fields.Integer,
 }
+
+
+step_fields = {
+    'step_number': fields.Integer,
+    'x_coordinate': fields.Integer,
+    'y_coordinate': fields.Integer,
+    'value': fields.String,
+}
