@@ -23,6 +23,7 @@ def get_game_result(step, member):
         game.save()
     return response
 
+
 @sio.on('connect', namespace='/hot_seat')
 def connect(sid, environ):
     pass

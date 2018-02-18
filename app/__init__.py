@@ -1,11 +1,12 @@
 import socketio
 from flask import Flask
-from config import DevelopmentConfig
-from flask_sqlalchemy import SQLAlchemy
+from flask_cors import CORS
+from flask_jwt import JWT
 from flask_migrate import Migrate
 from flask_restful import Api
-from flask_jwt import JWT
-from flask_cors import CORS
+from flask_sqlalchemy import SQLAlchemy
+
+from config import DevelopmentConfig
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
@@ -20,6 +21,7 @@ jwt = JWT(app, security.authenticate, security.identity)
 sio = socketio.Server()
 migrate = Migrate(app, db)
 
-from app import models, routes, socket_app
+from app import models, routes
+from app.hot_seat import socket_app
 
 
