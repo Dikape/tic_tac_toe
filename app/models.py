@@ -35,6 +35,9 @@ class GameType(db.Model):
     title = db.Column(db.String(10))
     games = db.relationship('Game', backref='game_type', lazy=True)
 
+    def __str__(self):
+        return self.title
+
 
 class Game(db.Model):
     __tablename__ = 'game'
@@ -57,6 +60,14 @@ class Game(db.Model):
         if winner_member:
             return winner_member.user.username
         return 'nobody'
+
+    @property
+    def steps(self):
+        steps_qs = Step.query.\
+            join(Member).\
+            filter(Member.game_id == self.id).\
+            order_by(Step.step_number).all()
+        return steps_qs
 
     def save(self):
         db.session.add(self)

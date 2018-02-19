@@ -5,8 +5,10 @@ from app import models
 from app.calculations import check_winner
 
 
-def save_member_status(member, status_str):
-    members = member.game.members
+def save_member_status(member, game, status_str):
+    if game.game_type.title != 'online':
+        return None
+    members = member.game.members.all()
     if status_str == 'winner':
         status_winner = models.Status.query.filter_by(status=status_str).first()
         status_loser = models.Status.query.filter_by(status='loser').first()
@@ -17,7 +19,7 @@ def save_member_status(member, status_str):
         loser_member.status_id = status_loser.id
         loser_member.save()
     else:
-        status_draw = models.Status.query.filter_by(status='draw').firsrt()
+        status_draw = models.Status.query.filter_by(status='draw').first()
         for member_obj in members:
             member_obj.status_id = status_draw.id
             member_obj.save()
@@ -34,10 +36,10 @@ def get_game_result(step, member):
     is_winner = check_winner(all_steps_current_symbol, step_coordinate)
 
     if is_winner:
-        save_member_status(member, 'winner')
+        save_member_status(member, game, 'winner')
         response['message'] = '{0} winner!'.format(step.value)
     elif len(all_steps.all()) == game.size*game.size:
-        save_member_status(member, 'draw')
+        save_member_status(member, game, 'draw')
         response['message'] = 'Draw game!'
     if response['message'] != 'saved':
         game.finished_datetime = datetime.now()

@@ -22,9 +22,6 @@ game_fields = {
     'finished_datetime': fields.String
 }
 
-history_fields = game_fields.copy()
-history_fields['winner'] = fields.String
-
 step_fields = {
     'step_number': fields.Integer,
     'x_coordinate': fields.Integer,
@@ -32,3 +29,9 @@ step_fields = {
     'value': fields.String,
     'user': fields.String
 }
+
+history_fields = game_fields.copy()
+history_fields['winner'] = fields.String
+
+history_fields_with_steps = history_fields.copy()
+history_fields_with_steps['steps'] = fields.Nested(step_fields)

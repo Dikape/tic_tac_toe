@@ -4,7 +4,8 @@ from sqlalchemy import desc
 
 from app import models
 from .parameters import (game_parser, game_fields,
-                         step_fields, history_fields)
+                         step_fields, history_fields,
+                         history_fields_with_steps)
 
 
 class HotSeatGameListResource(Resource):
@@ -95,3 +96,14 @@ class HistoryListResource(Resource):
             order_by(desc(models.Game.finished_datetime)).all()
         return games, 200
 
+
+class HistoryGameResource(Resource):
+    @jwt_required()
+    @marshal_with(history_fields_with_steps)
+    def get(self, game_id):
+        """Get game steps"""
+        game = models.Game.query.filter_by(id=game_id).first()
+        users = [member.user_id for member in game.members]
+        if current_identity.id in users:
+            return game, 200
+        return 404
