@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  postgres_db:
+    image: postgres
+    volumes:
+    - ./data/pg_data:/var/lib/postgresql/data
+    environment:
+    - POSTGRES_DB=tic_tac_toe_db
+    - POSTGRES_USER=tic_tac_toe_user
+    - POSTGRES_PASSWORD=tic_tac_toe_pass
+    restart: always
+  web:
+    build: .
+    command: python3 run.py
+    environment:
+    - APP_MODE=web
+    volumes:
+    - ./config.docker.py:/app/config.py
+    - ./data/web/logs:/app/data/logs
+    ports:
+    - "5000:5000"
+    restart: always
