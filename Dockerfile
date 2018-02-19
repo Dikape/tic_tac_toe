@@ -12,3 +12,4 @@ ADD . /app/
 RUN rm -f /app/config.py
 
 ENV APP_MODE=web
+ENV FLASK_APP=./run.py
